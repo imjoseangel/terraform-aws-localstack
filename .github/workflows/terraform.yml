@@ -1,0 +1,66 @@
+name: 'Terraform'
+
+on:
+  push:
+    branches:
+    - devel
+  pull_request:
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      id: setup
+      uses: hashicorp/setup-terraform@v1
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check
+
+    # Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc.
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate
+
+    # Run the tfsec sarif check. Uses static analysis of your terraform templates to spot potential security issues.
+    - name: Terraform Security Analysis
+      id: tfsec
+      uses: tfsec/tfsec-sarif-action@master
+      with:
+        sarif_file: tfsec.sarif
+
+    # Uploads results.sarif to GitHub repository using the upload-sarif action
+    - name: Terraform Security Report
+      id: tfsarif
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: tfsec.sarif
+
+    # CStatic code analyzer for Infrastructure as Code with terrascan.
+    - name: Terraform Scan Code Base
+      uses: github/super-linter@v3
+      env:
+        VALIDATE_ALL_CODEBASE: true
+        DEFAULT_BRANCH: devel
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VALIDATE_TERRAFORM: true
+        VALIDATE_TERRAFORM_TERRASCAN: true

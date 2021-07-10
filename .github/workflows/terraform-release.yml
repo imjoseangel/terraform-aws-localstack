@@ -1,0 +1,55 @@
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+rc[0-9]+'
+
+name: Create Release
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Get current tag
+      id: currenttag
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+    - name: Create Release
+      id: create_release
+      uses: ncipollo/release-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ steps.currenttag.outputs.tag }}
+        name: Release ${{ steps.currenttag.outputs.tag }}
+        body: |
+          # Terraform - AWS with Localstack
+
+          [![Terraform](https://github.com/imjoseangel/terraform-aws/actions/workflows/terraform.yml/badge.svg)](https://github.com/imjoseangel/terraform-aws/actions/workflows/terraform.yml)
+
+          A [Terraform][2] solution to run AWS with Terraform.
+
+          By [imjoseangel][3]
+
+          Use with:
+          ```bash
+          export AWS_ACCESS_KEY_ID=test
+          export AWS_SECRET_ACCESS_KEY=test
+
+          terraform init
+          terraform apply
+          ```
+
+          ## License
+
+          Licensed under [the MIT License][1].
+
+          [1]: https://github.com/imjoseangel/terraform-aws/blob/devel/LICENSE
+          [2]: https://www.terraform.io/
+          [3]: https://imjoseangel.github.io
+        draft: false
+        prerelease: false

@@ -1,0 +1,53 @@
+---
+fail_fast: false
+
+repos:
+
+  - repo: local
+    hooks:
+      - id: forbid-binary
+        name: forbid-binary (local)
+        language: script
+        entry: hooks/forbid-binary
+        types: ['binary']
+        exclude: >
+          (?x)^(
+            screenshot.png
+          )$
+
+      - id: git-dirty
+        name: git-dirty (local)
+        language: script
+        entry: hooks/git-dirty
+
+      - id: tfsec-system
+        name: TFSec system (local)
+        description: TFsec is a tool to statically analyze Terraform templates to spot potential security issues, uses systems installed tfsec.
+        language: script
+        entry: hooks/tf-sec
+        types: [terraform]
+
+      - id: terrascan
+        name: Terrascan (local)
+        description: Terrascan is a static code analyzer for Infrastructure as Code.
+        language: script
+        entry: hooks/terrascan
+        types: [terraform]
+
+      - id: detect-secrets
+        name: Detect Secrets
+        description: This hook detects and prevents high entropy strings from entering the codebase.
+        entry: hooks/detect-secrets
+        language: script
+        files: .*
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: trailing-whitespace
