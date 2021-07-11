@@ -16,5 +16,8 @@ provider "aws" {
     dynamodb = "http://localhost:4566"
     ec2      = "http://localhost:4566"
     iam      = "http://localhost:4566"
+    networkfirewall = "http://localhost:4566"
+    networkmanager = "http://localhost:4566"
+
   }
 }
