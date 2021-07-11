@@ -15,17 +15,17 @@ resource "aws_subnet" "vpc_private_subnet" {
 # Create Security Group
 #---------------------------------------------------------
 
-module "security_group" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
+# module "security_group" {
+#   source  = "terraform-aws-modules/security-group/aws"
+#   version = "~> 4.0"
 
-  name        = format("%s-%s", var.prefix, lower(replace(var.sg_name, "/[[:^alnum:]]/", "")))
-  description = "Security group for EC2 instance"
-  vpc_id      = aws_vpc.main.id
+#   name        = format("%s-%s", var.prefix, lower(replace(var.sg_name, "/[[:^alnum:]]/", "")))
+#   description = "Security group for EC2 instance"
+#   vpc_id      = aws_vpc.main.id
 
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["all-icmp"]
-}
+#   ingress_cidr_blocks = ["0.0.0.0/0"]
+#   ingress_rules       = ["all-icmp"]
+# }
 
 #---------------------------------------------------------
 # Create DynamoDB
@@ -37,11 +37,14 @@ resource "aws_dynamodb_table" "main" {
   hash_key               = "id"
   stream_enabled         = true
   stream_view_type       = "NEW_AND_OLD_IMAGES"
-  server_side_encryption = true
   read_capacity          = 1
   write_capacity         = 1
 
   point_in_time_recovery {
+      enabled = true
+  }
+
+  server_side_encryption {
       enabled = true
   }
 
@@ -73,9 +76,6 @@ resource "aws_iam_role" "ec2_dynamodb_role" {
       }
     ]
   })
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_iam_policy" "ec2_policy" {
@@ -125,7 +125,7 @@ module "ec2" {
   instance_type          = var.ec2_instance_type
   subnet_id              = aws_subnet.vpc_private_subnet.id
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
-  vpc_security_group_ids = [module.security_group.security_group_id]
+  # vpc_security_group_ids = [module.security_group.security_group_id]
 
   tags = merge({ "ResourceName" = format("%s", var.ec2_name) }, var.tags, )
 }
