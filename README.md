@@ -1,5 +1,7 @@
 # Terraform AWS
 
+[![Terraform CI](https://github.com/imjoseangel/terraform-aws/actions/workflows/terraform.yml/badge.svg)](https://github.com/imjoseangel/terraform-aws/actions/workflows/terraform.yml)
+
 ## Deploys an AWS EC2 and DynamoDB on LocalStack
 
 The following repository shows the way to create an EC2 instance connected to a DynamoDB with LocalStack. All the test are running automatically and using GitHub Actions.
@@ -27,6 +29,12 @@ export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 ```
 
+Recommended the use of localstack in docker running:
+
+```bash
+docker-compose -f docker-compose.yaml up -d
+```
+
 #### Password protection
 
 For production environments use a protected pipeline with a secret manager solution (Recommended [Hashicorp Vault](https://www.vaultproject.io/)).
@@ -35,9 +43,19 @@ Check how the passwords are used under [GitHub Actions](.github/workflows/terraf
 
 If something goes wrong, [GitGuardian](https://github.com/GitGuardian) is enabled in the repository to avoid passwords leaking.
 
-#### Pre-commit
+#### Pre-commit and editor config
 
-Use the [pre-commit](https://pre-commit.com/) hooks in this repository to ensure security and formatting for terraform, detect passwords and other static checks before uploading code.
+* Use [pre-commit](https://pre-commit.com/) hooks in this repository to ensure security and formatting for terraform, detect passwords and other static checks before uploading code.
+
+* Use [editorconfig](https://editorconfig.org/) in your IDE for file formatting.
+
+#### Makefile
+
+A makefile has been added to make the cleaning and test easier. Run `make help` to review options.
+
+### Terraform
+
+The solution reflected in this repository connects an EC2 instance with DynamoDB by using IAM Policies. Official AWS Modules have been used for EC2 and security group and avoided for the rest of the components for the sake of simplicity. I always recommend local maintained and secured modules with local policies.
 
 ## Authors
 
