@@ -19,7 +19,7 @@ module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name        = "example"
+  name        = format("%s-%s", var.prefix, lower(replace(var.sg_name, "/[[:^alnum:]]/", "")))
   description = "Security group for EC2 instance"
   vpc_id      = aws_vpc.main.id
 
@@ -34,7 +34,7 @@ module "security_group" {
 
 resource "aws_dynamodb_table" "main" {
 
-  name             = "exampledb"
+  name             = format("%s-%s", var.prefix, lower(replace(var.db_name, "/[[:^alnum:]]/", "")))
   hash_key         = "id"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
@@ -106,12 +106,12 @@ module "ec2" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 2.0"
 
-  name           = var.ec2_name
-  instance_count = var.ec2_instance_count
-  ami                  = var.ec2_ami
-  instance_type        = var.ec2_instance_type
-  subnet_id            = aws_subnet.vpc_private_subnet.id
-  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+  name                   = format("%s-%s", var.prefix, lower(replace(var.ec2_name, "/[[:^alnum:]]/", "")))
+  instance_count         = var.ec2_instance_count
+  ami                    = var.ec2_ami
+  instance_type          = var.ec2_instance_type
+  subnet_id              = aws_subnet.vpc_private_subnet.id
+  iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
   vpc_security_group_ids = [module.security_group.security_group_id]
 
   tags = merge({ "ResourceName" = format("%s", var.ec2_name) }, var.tags, )

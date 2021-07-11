@@ -10,10 +10,10 @@ variable "vpc_private_subnet" {
   default     = "10.0.1.0/24"
 }
 
-variable "ec2_name" {
+variable "prefix" {
   description = "Name to be used on all resources as prefix"
   type        = string
-  default     = "example"
+  default     = "default"
 }
 
 variable "ec2_instance_count" {
@@ -38,4 +38,22 @@ variable "tags" {
   description = "Tags to apply to all resources created."
   type        = map(string)
   default     = {}
+}
+
+variable "sg_name" {
+  description = "Name for the security group"
+  type        = string
+  default     = "sg"
+}
+
+variable "db_name" {
+  description = "Name for the DynamoDB"
+  type        = string
+  default     = "db"
+}
+
+variable "ec2_name" {
+  description = "Name for the EC2"
+  type        = string
+  default     = "ec2"
 }
