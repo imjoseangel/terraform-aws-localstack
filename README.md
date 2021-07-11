@@ -4,11 +4,11 @@
 
 ## Deploys an AWS EC2 and DynamoDB on LocalStack
 
-The following repository shows the way to create an EC2 instance connected to a DynamoDB with LocalStack. All the test are running automatically and using GitHub Actions.
+The following repository shows the way to create an EC2 instance connected to a DynamoDB with [LocalStack](https://github.com/localstack/localstack). All the test are running automatically and using GitHub Actions.
 
 ### NOTES
 
-* Automatically test the code with [localstack](https://github.com/localstack/localstack).
+* Automatically test the code with [LocalStack](https://github.com/localstack/localstack).
 * Automatically uses [tfsec](https://github.com/tfsec/tfsec) for security testing.
 * Implements [pre-commit](https://pre-commit.com/)  for static testing
 * Implements [editorconfig](https://editorconfig.org/) for file format.
@@ -35,7 +35,11 @@ Recommended the use of localstack in docker running:
 docker-compose -f docker-compose.yaml up -d
 ```
 
-#### Password protection
+## CI Reference
+
+Check the [GitHub Actions](.github/workflows/terraform.yml) for pipeline testing reference. Different techniques has been applied to test Terraform code, whether statically and with [LocalStack](https://github.com/localstack/localstack).
+
+### Password protection
 
 For production environments use a protected pipeline with a secret manager solution (Recommended [Hashicorp Vault](https://www.vaultproject.io/)).
 
@@ -43,17 +47,17 @@ Check how the passwords are used under [GitHub Actions](.github/workflows/terraf
 
 If something goes wrong, [GitGuardian](https://github.com/GitGuardian) is enabled in the repository to avoid passwords leaking.
 
-#### Pre-commit and editor config
+### Pre-commit and editor config
 
 * Use [pre-commit](https://pre-commit.com/) hooks in this repository to ensure security and formatting for terraform, detect passwords and other static checks before uploading code.
 
 * Use [editorconfig](https://editorconfig.org/) in your IDE for file formatting.
 
-#### Makefile
+### Makefile
 
 A makefile has been added to make the cleaning and test easier. Run `make help` to review options.
 
-### Terraform
+## Terraform
 
 The solution reflected in this repository connects an EC2 instance with DynamoDB by using IAM Policies. Official AWS Modules have been used for EC2 and security group and avoided for the rest of the components for the sake of simplicity. I always recommend local maintained and secured modules with local policies.
 
