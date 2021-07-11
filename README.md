@@ -9,9 +9,9 @@ The following repository shows the way to create an EC2 instance connected to a 
 ### NOTES
 
 * Automatically test the code with [localstack](https://github.com/localstack/localstack).
-* Automatically uses tfsec for security testing.
-* Implements `pre-commit` for static testing
-* Implements `editorconfig` for file format.
+* Automatically uses [tfsec](https://github.com/tfsec/tfsec) for security testing.
+* Implements [pre-commit](https://pre-commit.com/)  for static testing
+* Implements [editorconfig](https://editorconfig.org/) for file format.
 
 ### How to use this repository
 
