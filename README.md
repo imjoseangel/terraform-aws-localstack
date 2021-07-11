@@ -11,6 +11,24 @@ The following repository shows the way to create an EC2 instance connected to a 
 * Implements `pre-commit` for static testing
 * Implements `editorconfig` for file format.
 
+### How to use this repository
+
+Configure the following environment variables for your local tests:
+
+`AWS_ACCESS_KEY_ID`
+`AWS_SECRET_ACCESS_KEY`
+
+In a local dev environment, these could be setup as:
+
+```bash
+export AWS_ACCESS_KEY_ID=test
+export AWS_SECRET_ACCESS_KEY=test
+```
+
+For production environments use a protected pipeline with a secret manager solution (Recommended [Hashicorp Vault](https://www.vaultproject.io/)).
+
+Check how the passwords are used under [GitHub Actions](.github/workflows/terraform.yml) for pipeline testing or production deployment reference.
+
 ## Authors
 
 Originally created by [imjoseangel](http://github.com/imjoseangel)
