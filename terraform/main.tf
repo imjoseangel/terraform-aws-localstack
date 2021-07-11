@@ -32,7 +32,7 @@ resource "aws_subnet" "vpc_private_subnet" {
 #---------------------------------------------------------
 
 resource "aws_dynamodb_table" "main" {
-  #ts:skip=AWS086 point_in_time_recovery should be skipped for now.
+  #tfsec:ignore:AWS086
   name                   = format("%s-%s", var.prefix, lower(replace(var.db_name, "/[[:^alnum:]]/", "")))
   hash_key               = "id"
   stream_enabled         = true
