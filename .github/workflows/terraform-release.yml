@@ -31,7 +31,7 @@ jobs:
 
           [![Terraform](https://github.com/imjoseangel/terraform-aws/actions/workflows/terraform.yml/badge.svg)](https://github.com/imjoseangel/terraform-aws/actions/workflows/terraform.yml)
 
-          A [Terraform][2] solution to run AWS with Terraform.
+          A [Terraform][2] solution to test AWS with LocalStack.
 
           By [imjoseangel][3]
 
