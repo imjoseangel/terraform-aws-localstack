@@ -68,6 +68,9 @@ resource "aws_iam_role" "ec2_dynamodb_role" {
       }
     ]
   })
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_iam_policy" "ec2_policy" {
@@ -89,11 +92,17 @@ resource "aws_iam_policy" "ec2_policy" {
 resource "aws_iam_role_policy_attachment" "ec2_attach" {
   role       = aws_iam_role.ec2_dynamodb_role.name
   policy_arn = aws_iam_policy.ec2_policy.arn
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_iam_instance_profile" "ec2_profile" {
   name = "ec2_profile"
   role = aws_iam_role.ec2_dynamodb_role.name
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # ---------------------------------------------------------
