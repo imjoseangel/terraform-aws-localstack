@@ -13,11 +13,11 @@ provider "aws" {
   skip_requesting_account_id  = true
 
   endpoints {
-    dynamodb = "http://localhost:4566"
-    ec2      = "http://localhost:4566"
-    iam      = "http://localhost:4566"
+    dynamodb        = "http://localhost:4566"
+    ec2             = "http://localhost:4566"
+    iam             = "http://localhost:4566"
     networkfirewall = "http://localhost:4566"
-    networkmanager = "http://localhost:4566"
+    networkmanager  = "http://localhost:4566"
 
   }
 }
