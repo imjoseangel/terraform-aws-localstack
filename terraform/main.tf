@@ -40,12 +40,6 @@ resource "aws_dynamodb_table" "main" {
   read_capacity          = 1
   write_capacity         = 1
 
-# This should be added in prod environments
-
-#   point_in_time_recovery {
-#       enabled = true
-#   }
-
   server_side_encryption {
       enabled = true
   }
