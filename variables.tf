@@ -83,13 +83,13 @@ variable "dynamo_encryption" {
 }
 
 variable "dynamo_read" {
-    description = "Read capacity for dynamodb table"
-    type = number
-    default = 1
+  description = "Read capacity for dynamodb table"
+  type        = number
+  default     = 1
 }
 
 variable "dynamo_write" {
-    description = "Write capacity for dynamodb table"
-    type = number
-    default = 1
+  description = "Write capacity for dynamodb table"
+  type        = number
+  default     = 1
 }

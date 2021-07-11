@@ -27,9 +27,17 @@ export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 ```
 
+#### Password protection
+
 For production environments use a protected pipeline with a secret manager solution (Recommended [Hashicorp Vault](https://www.vaultproject.io/)).
 
 Check how the passwords are used under [GitHub Actions](.github/workflows/terraform.yml) for pipeline testing or production deployment reference.
+
+If something goes wrong, [GitGuardian](https://github.com/GitGuardian) is enabled in the repository to avoid passwords leaking.
+
+#### Pre-commit
+
+Use the [pre-commit](https://pre-commit.com/) hooks in this repository to ensure security and formatting for terraform, detect passwords and other static checks before uploading code.
 
 ## Authors
 
