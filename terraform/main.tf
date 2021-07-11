@@ -32,7 +32,7 @@ resource "aws_subnet" "vpc_private_subnet" {
 #---------------------------------------------------------
 
 resource "aws_dynamodb_table" "main" {
-
+  #ts:skip=AWS086 point_in_time_recovery should be skipped for now.
   name                   = format("%s-%s", var.prefix, lower(replace(var.db_name, "/[[:^alnum:]]/", "")))
   hash_key               = "id"
   stream_enabled         = true
@@ -40,9 +40,11 @@ resource "aws_dynamodb_table" "main" {
   read_capacity          = 1
   write_capacity         = 1
 
-  point_in_time_recovery {
-      enabled = true
-  }
+# This should be added in prod environments
+
+#   point_in_time_recovery {
+#       enabled = true
+#   }
 
   server_side_encryption {
       enabled = true
