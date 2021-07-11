@@ -34,14 +34,14 @@ module "security_group" {
 resource "aws_dynamodb_table" "main" {
   #tfsec:ignore:AWS086
   name             = format("%s-%s", var.prefix, lower(replace(var.db_name, "/[[:^alnum:]]/", "")))
-  hash_key         = "id"
-  stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-  read_capacity    = 1
-  write_capacity   = 1
+  hash_key         = var.dynamo_hash_key
+  stream_enabled   = var.dynamo_stream_enabled
+  stream_view_type = var.dynamo_stream_view_type
+  read_capacity    = var.dynamo_read
+  write_capacity   = var.dynamo_write
 
   server_side_encryption {
-    enabled = true
+    enabled = var.dynamo_encryption
   }
 
   attribute {

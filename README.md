@@ -15,8 +15,10 @@ The following repository shows the way to create an EC2 instance connected to a 
 
 Configure the following environment variables for your local tests:
 
-`AWS_ACCESS_KEY_ID`
-`AWS_SECRET_ACCESS_KEY`
+```bash
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+```
 
 In a local dev environment, these could be setup as:
 

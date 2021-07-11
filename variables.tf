@@ -57,3 +57,39 @@ variable "ec2_name" {
   type        = string
   default     = "ec2"
 }
+
+variable "dynamo_hash_key" {
+  description = "Hash Key for DynamoDB"
+  type        = string
+  default     = "id"
+}
+
+variable "dynamo_stream_view_type" {
+  description = "Stream view type for DynamoDB"
+  type        = string
+  default     = "NEW_AND_OLD_IMAGES"
+}
+
+variable "dynamo_stream_enabled" {
+  description = "Enable Stream for DynamoDB"
+  type        = bool
+  default     = true
+}
+
+variable "dynamo_encryption" {
+  description = "Server Side Encryiption for DynamoDB"
+  type        = bool
+  default     = true
+}
+
+variable "dynamo_read" {
+    description = "Read capacity for dynamodb table"
+    type = number
+    default = 1
+}
+
+variable "dynamo_write" {
+    description = "Write capacity for dynamodb table"
+    type = number
+    default = 1
+}
