@@ -15,17 +15,17 @@ resource "aws_subnet" "vpc_private_subnet" {
 # Create Security Group
 #---------------------------------------------------------
 
-# module "security_group" {
-#   source  = "terraform-aws-modules/security-group/aws"
-#   version = "~> 4.0"
+module "security_group" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 4.0"
 
-#   name        = format("%s-%s", var.prefix, lower(replace(var.sg_name, "/[[:^alnum:]]/", "")))
-#   description = "Security group for EC2 instance"
-#   vpc_id      = aws_vpc.main.id
+  name        = format("%s-%s", var.prefix, lower(replace(var.sg_name, "/[[:^alnum:]]/", "")))
+  description = "Security group for EC2 instance"
+  vpc_id      = aws_vpc.main.id
 
-#   ingress_cidr_blocks = ["0.0.0.0/0"]
-#   ingress_rules       = ["all-icmp"]
-# }
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["all-icmp"]
+}
 
 #---------------------------------------------------------
 # Create DynamoDB
@@ -121,7 +121,7 @@ module "ec2" {
   instance_type          = var.ec2_instance_type
   subnet_id              = aws_subnet.vpc_private_subnet.id
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
-  # vpc_security_group_ids = [module.security_group.security_group_id]
+  vpc_security_group_ids = [module.security_group.security_group_id]
 
   tags = merge({ "ResourceName" = format("%s", var.ec2_name) }, var.tags, )
 }

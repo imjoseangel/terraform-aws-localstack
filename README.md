@@ -6,7 +6,7 @@ The following repository shows the way to create an EC2 instance connected to a 
 
 ### NOTES
 
-* The process prepares the localstack for testing.
+* The process prepares the [localstack](https://github.com/localstack/localstack) for testing.
 
 ## Authors
 

@@ -63,4 +63,3 @@ jobs:
         DEFAULT_BRANCH: devel
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VALIDATE_TERRAFORM: true
-        VALIDATE_TERRAFORM_TERRASCAN: false
