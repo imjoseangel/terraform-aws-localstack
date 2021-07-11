@@ -66,6 +66,7 @@ jobs:
 
     # Test with localstack
     - name: LocalStack Test
+      id: localstack
       env:
         DEFAULT_REGION: us-east-1
         AWS_ACCOUNT_ID: "000000000000"
