@@ -45,7 +45,7 @@ For **Production environments** use a protected pipeline with a secret manager s
 
 Check how the passwords are used under [GitHub Actions](.github/workflows/terraform.yml) for pipeline testing or production deployment reference.
 
-[GitGuardian](https://github.com/GitGuardian) is enabled in the repository to avoid password leaks.
+[GitGuardian](https://github.com/GitGuardian) is enabled in the repository to avoid secret leaks.
 
 ### Pre-commit and editor config
 
