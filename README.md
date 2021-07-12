@@ -41,7 +41,7 @@ Check the [GitHub Actions](.github/workflows/terraform.yml) for pipeline testing
 
 ### Password protection
 
-For production environments use a protected pipeline with a secret manager solution (Recommended [Hashicorp Vault](https://www.vaultproject.io/)).
+For **Production environments** use a protected pipeline with a secret manager solution (Recommended [Hashicorp Vault](https://www.vaultproject.io/)).
 
 Check how the passwords are used under [GitHub Actions](.github/workflows/terraform.yml) for pipeline testing or production deployment reference.
 
