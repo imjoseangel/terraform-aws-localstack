@@ -13,7 +13,7 @@ status = 0
 
 for filename in sys.argv:
     line_num = 0
-    with open(filename, 'r', encoding='UTF-8') as fh:
+    with open(filename, "r", encoding="UTF-8") as fh:
         while True:
             line_num += 1
             try:
@@ -32,9 +32,9 @@ for filename in sys.argv:
                 col_num += 1
                 if ord(char) > 127:
                     print(
-                        f"{filename}: line {line_num} column {col_num} " +
-                        f"character \"{char}\" (decimal {ord(char)})"
-                        )
+                        f"{filename}: line {line_num} column {col_num} "
+                        + f'character "{char}" (decimal {ord(char)})'
+                    )
                     status = 1
 
 sys.exit(status)

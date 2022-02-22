@@ -7,8 +7,8 @@ set -eu
 ################################################################################
 
 if [ $# -gt 0 ]; then
-	for filename in "${@}"; do
-		echo "[ERROR] ${filename} appears to be a binary file"
-	done
-	exit 1
+  for filename in "${@}"; do
+    echo "[ERROR] ${filename} appears to be a binary file"
+  done
+  exit 1
 fi
