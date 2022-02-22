@@ -1,3 +1,4 @@
+---
 name: 'Terraform'
 
 on:
@@ -17,63 +18,63 @@ jobs:
         shell: bash
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v2
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      id: setup
-      uses: hashicorp/setup-terraform@v1
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        id: setup
+        uses: hashicorp/setup-terraform@v1
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      id: init
-      run: terraform init
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terraform Format
-      id: fmt
-      run: terraform fmt -check
+      # Checks that all Terraform configuration files adhere to a canonical format
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
 
-    # Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc.
-    - name: Terraform Validate
-      id: validate
-      run: terraform validate
+      # Validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc.
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
 
-    # Run the tfsec sarif check. Uses static analysis of your terraform templates to spot potential security issues.
-    - name: Terraform Security Analysis
-      id: tfsec
-      uses: tfsec/tfsec-sarif-action@master
-      with:
-        sarif_file: tfsec.sarif
+      # Run the tfsec sarif check. Uses static analysis of your terraform templates to spot potential security issues.
+      - name: Terraform Security Analysis
+        id: tfsec
+        uses: tfsec/tfsec-sarif-action@master
+        with:
+          sarif_file: tfsec.sarif
 
-    # Uploads results.sarif to GitHub repository using the upload-sarif action
-    - name: Terraform Security Report
-      id: tfsarif
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: tfsec.sarif
+      # Uploads results.sarif to GitHub repository using the upload-sarif action
+      - name: Terraform Security Report
+        id: tfsarif
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: tfsec.sarif
 
-    # CStatic code analyzer for Infrastructure as Code with terrascan.
-    - name: Terraform Scan Code Base
-      id: superlinter
-      uses: github/super-linter@v4
-      env:
-        VALIDATE_ALL_CODEBASE: true
-        DEFAULT_BRANCH: devel
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        VALIDATE_TERRAFORM: true
-        YAML_CONFIG_FILE: .yamllint
+      # CStatic code analyzer for Infrastructure as Code with terrascan.
+      - name: Terraform Scan Code Base
+        id: superlinter
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: devel
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_TERRAFORM: true
+          YAML_CONFIG_FILE: .yamllint
 
-    # Test with localstack
-    - name: LocalStack Test
-      id: localstack
-      env:
-        DEFAULT_REGION: us-east-1
-        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: |
-        docker-compose -f docker-compose.yaml up -d
-        terraform apply -auto-approve
+      # Test with localstack
+      - name: LocalStack Test
+        id: localstack
+        env:
+          DEFAULT_REGION: us-east-1
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          docker-compose -f docker-compose.yaml up -d
+          terraform apply -auto-approve

@@ -11,7 +11,7 @@ The following repository shows the way to create an EC2 instance connected to a 
 * Automatically test the code with [LocalStack](https://github.com/localstack/localstack).
 * Automatically uses [tfsec](https://github.com/tfsec/tfsec) for security testing.
 * Implements [pre-commit](https://pre-commit.com/)  for static testing
-* Implements [editorconfig](https://editorconfig.org/) for file format.
+* Implements [EditorConfig](https://editorconfig.org/) for file format.
 
 ### How to use this repository
 
@@ -51,7 +51,7 @@ Check how the passwords are used under [GitHub Actions](.github/workflows/terraf
 
 * Use [pre-commit](https://pre-commit.com/) hooks in this repository to ensure security and formatting for terraform, detect passwords and other static checks before uploading code.
 
-* Use [editorconfig](https://editorconfig.org/) in your IDE for file formatting.
+* Use [EditorConfig](https://editorconfig.org/) in your IDE for file formatting.
 
 ### Makefile
 
