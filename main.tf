@@ -113,7 +113,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 
 module "ec2" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 2.0"
+  version = "~> 3.4"
 
   name                   = format("%s-%s", var.prefix, lower(replace(var.ec2_name, "/[[:^alnum:]]/", "")))
   instance_count         = var.ec2_instance_count
