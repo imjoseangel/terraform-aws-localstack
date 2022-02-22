@@ -57,12 +57,14 @@ jobs:
 
     # CStatic code analyzer for Infrastructure as Code with terrascan.
     - name: Terraform Scan Code Base
-      uses: github/super-linter@v3
+      id: superlinter
+      uses: github/super-linter@v4
       env:
         VALIDATE_ALL_CODEBASE: true
         DEFAULT_BRANCH: devel
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VALIDATE_TERRAFORM: true
+        YAML_CONFIG_FILE: .yamllint
 
     # Test with localstack
     - name: LocalStack Test
