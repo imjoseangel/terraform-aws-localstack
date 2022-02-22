@@ -6,6 +6,16 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 }
 
+# resource "aws_flow_log" "main" {
+#   vpc_id          = aws_vpc.main.id
+#   traffic_type    = "ALL"
+#   log_destination = aws_cloudwatch_log_group.main.arn
+# }
+
+# resource "aws_cloudwatch_log_group" "main" {
+#   name = "example"
+# }
+
 resource "aws_subnet" "vpc_private_subnet" {
   vpc_id     = aws_vpc.main.id
   cidr_block = var.vpc_private_subnet
