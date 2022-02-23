@@ -10,5 +10,5 @@ output "tags" {
 
 output "instance_id" {
   description = "EC2 instance ID"
-  value       = module.ec2.id[0]
+  value       = module.ec2.id
 }
