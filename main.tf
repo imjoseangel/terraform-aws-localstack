@@ -120,7 +120,6 @@ module "ec2" {
   version = "~> 3.4"
 
   name                   = format("%s-%s", var.prefix, lower(replace(var.ec2_name, "/[[:^alnum:]]/", "")))
-  instance_count         = var.ec2_instance_count
   ami                    = var.ec2_ami
   instance_type          = var.ec2_instance_type
   subnet_id              = aws_subnet.vpc_private_subnet.id
