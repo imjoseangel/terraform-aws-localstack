@@ -40,6 +40,10 @@ resource "aws_dynamodb_table" "main" {
   read_capacity    = var.dynamo_read
   write_capacity   = var.dynamo_write
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   server_side_encryption {
     enabled = var.dynamo_encryption
   }
