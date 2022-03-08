@@ -1,10 +1,17 @@
 #---------------------------------------------------------
 # Create Basic VPC and Subnet
 #---------------------------------------------------------
-
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 }
+
+resource "aws_flow_log" "main" {
+  iam_role_arn    = aws_iam_role.main.arn
+  log_destination = aws_cloudwatch_log_group.main.arn
+  traffic_type    = "ALL"
+  vpc_id          = aws_vpc.main.id
+}
+
 
 resource "aws_subnet" "vpc_private_subnet" {
   vpc_id     = aws_vpc.main.id
