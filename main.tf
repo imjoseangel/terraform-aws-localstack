@@ -16,6 +16,26 @@ resource "aws_s3_bucket" "main" {
   bucket = "awsflowlog"
 }
 
+resource "aws_s3_bucket_acl" "main" {
+  bucket = aws_s3_bucket.main.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket" "log_bucket" {
+  bucket = "my-tf-log-bucket"
+}
+
+resource "aws_s3_bucket_acl" "log_bucket_acl" {
+  bucket = aws_s3_bucket.log_bucket.id
+  acl    = "log-delivery-write"
+}
+
+resource "aws_s3_bucket_logging" "main" {
+  bucket        = aws_s3_bucket.main.id
+  target_bucket = aws_s3_bucket.log_bucket.id
+  target_prefix = "log/"
+}
+
 resource "aws_subnet" "vpc_private_subnet" {
   vpc_id     = aws_vpc.main.id
   cidr_block = var.vpc_private_subnet
