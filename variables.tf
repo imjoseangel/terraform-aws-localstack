@@ -49,7 +49,7 @@ variable "sg_name" {
 variable "db_name" {
   description = "Name for the DynamoDB"
   type        = string
-  default     = "db"
+  default     = "mydynamodb"
 }
 
 variable "ec2_name" {
